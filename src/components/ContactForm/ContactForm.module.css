@@ -1,0 +1,28 @@
+.form {
+  display: inline-block;
+
+  padding: 15px 18px;
+
+  border: 1px solid #000000;
+}
+
+.form__inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__list {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.form__item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.form__label {
+  display: flex;
+  flex-direction: column;
+}
