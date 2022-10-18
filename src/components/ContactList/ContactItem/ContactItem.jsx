@@ -1,15 +1,15 @@
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import style from './ContactItem.module.css';
-import { itemsActions } from 'redux/contacts/itemsSlice';
-import { filterActions } from 'redux/contacts/filterSlice';
+import { deleteContact } from 'redux/contacts/itemsSlice';
+import { setFilter } from 'redux/contacts/filterSlice';
 
 export default function ContactItem({ id, name, number }) {
   const dispatch = useDispatch();
 
   const handleBtnClick = id => {
-    dispatch(itemsActions.deleteContact(id));
-    dispatch(filterActions.filterContacts(''));
+    dispatch(deleteContact(id));
+    dispatch(setFilter(''));
   };
 
   return (

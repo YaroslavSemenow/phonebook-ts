@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { filterActions } from 'redux/contacts/filterSlice';
+import { setFilter } from 'redux/contacts/filterSlice';
 
 export default function Filter() {
   const filterValue = useSelector(state => state.contacts.filter);
@@ -12,9 +12,7 @@ export default function Filter() {
         type="text"
         name="filter"
         value={filterValue}
-        onChange={e =>
-          dispatch(filterActions.filterContacts(e.currentTarget.value))
-        }
+        onChange={e => dispatch(setFilter(e.currentTarget.value))}
       />
     </>
   );

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterActions } from 'redux/contacts/filterSlice';
-import { itemsActions } from 'redux/contacts/itemsSlice';
+import { setFilter } from 'redux/contacts/filterSlice';
+import { addContact } from 'redux/contacts/itemsSlice';
 import shortid from 'shortid';
 import style from './ContactForm.module.css';
 
@@ -30,7 +30,7 @@ export default function ContactForm() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(filterActions.filterContacts(''));
+    dispatch(setFilter(''));
 
     const id = shortid.generate();
     const newContact = { id, name, number };
@@ -44,7 +44,7 @@ export default function ContactForm() {
       }
     }
 
-    dispatch(itemsActions.addContact(newContact));
+    dispatch(addContact(newContact));
   };
 
   const resetForm = () => {
