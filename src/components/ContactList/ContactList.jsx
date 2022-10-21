@@ -27,8 +27,7 @@ export default function ContactList() {
     }
 
     localStorage.setItem(LS_KEY, JSON.stringify(contacts));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contacts]);
+  }, [contacts, isFirstRender]);
 
   const getVisibleContacts = () => {
     const normalizedFilter = filter.toLowerCase();
