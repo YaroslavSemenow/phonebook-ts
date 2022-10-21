@@ -1,9 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { setFilter } from 'redux/contacts/filterSlice';
+import useContacts from 'hooks/useContacts';
 
 export default function Filter() {
-  const filterValue = useSelector(state => state.contacts.filter);
-  const dispatch = useDispatch();
+  const { filter, setFilter } = useContacts();
 
   return (
     <>
@@ -11,8 +9,8 @@ export default function Filter() {
       <input
         type="text"
         name="filter"
-        value={filterValue}
-        onChange={e => dispatch(setFilter(e.currentTarget.value))}
+        value={filter}
+        onChange={e => setFilter(e.currentTarget.value)}
       />
     </>
   );

@@ -1,14 +1,34 @@
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import useContacts from 'hooks/useContacts';
 import ContactItem from './ContactItem';
 import style from './ContactList.module.css';
 
-export default function ContactList() {
-  const contacts = useSelector(state => state.contacts.items);
-  const filter = useSelector(state => state.contacts.filter);
+const LS_KEY = 'contacts';
 
-  if (contacts.length === 0) {
-    return;
-  }
+export default function ContactList() {
+  const { contacts, filter, addContactsFromLS } = useContacts();
+  const [isFirstRender, setIsFirstRender] = useState(true);
+
+  useEffect(() => {
+    const contactsLS = localStorage.getItem(LS_KEY);
+    const parsedContactsLS = JSON.parse(contactsLS);
+    setIsFirstRender(false);
+
+    if (!parsedContactsLS) {
+      return;
+    }
+    addContactsFromLS(parsedContactsLS);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (isFirstRender) {
+      return;
+    }
+
+    localStorage.setItem(LS_KEY, JSON.stringify(contacts));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contacts]);
 
   const getVisibleContacts = () => {
     const normalizedFilter = filter.toLowerCase();
@@ -21,10 +41,12 @@ export default function ContactList() {
   const visibleContacts = getVisibleContacts();
 
   return (
-    <ul className={style.list}>
-      {visibleContacts.map(({ id, name, number }) => (
-        <ContactItem key={id} id={id} name={name} number={number} />
-      ))}
-    </ul>
+    contacts.length !== 0 && (
+      <ul className={style.list}>
+        {visibleContacts.map(({ id, name, number }) => (
+          <ContactItem key={id} id={id} name={name} number={number} />
+        ))}
+      </ul>
+    )
   );
 }

@@ -1,15 +1,11 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setFilter } from 'redux/contacts/filterSlice';
-import { addContact } from 'redux/contacts/itemsSlice';
-import shortid from 'shortid';
+import useContacts from 'hooks/useContacts';
 import style from './ContactForm.module.css';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const contacts = useSelector(state => state.contacts.items);
-  const dispatch = useDispatch();
+  const { addContact, setFilter } = useContacts();
 
   const handleInputChange = e => {
     const { name, value } = e.currentTarget;
@@ -30,21 +26,9 @@ export default function ContactForm() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(setFilter(''));
-
-    const id = shortid.generate();
-    const newContact = { id, name, number };
-
+    setFilter('');
+    addContact(name, number);
     resetForm();
-
-    for (const { name } of contacts) {
-      if (name.toLowerCase() === newContact.name.toLowerCase()) {
-        alert(`${newContact.name} is already in contact`);
-        return;
-      }
-    }
-
-    dispatch(addContact(newContact));
   };
 
   const resetForm = () => {
