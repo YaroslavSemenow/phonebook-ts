@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useContacts from 'hooks/useContacts';
-import ContactItem from './ContactItem';
+import ContactItem from './ContactItem/ContactItem';
 import style from './ContactList.module.css';
 
 const LS_KEY = 'contacts';

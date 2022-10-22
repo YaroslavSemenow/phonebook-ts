@@ -12,5 +12,4 @@ const itemsSlice = createSlice({
 });
 
 export const itemsReducer = itemsSlice.reducer;
-export const { addContact, addContactsFromLS, deleteContact } =
-  itemsSlice.actions;
+export const itemsActions = itemsSlice.actions;
