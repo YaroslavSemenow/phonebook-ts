@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import shortid from 'shortid';
-import { filterActions, itemsActions } from 'redux/contacts';
+import { contactsActions } from 'redux/contacts';
 
 export default function useContacts() {
   const contacts = useSelector(state => state.contacts.items);
@@ -8,7 +8,7 @@ export default function useContacts() {
   const dispatch = useDispatch();
 
   const handleAddContactsFromLS = contacts => {
-    dispatch(itemsActions.addContactsFromLS(contacts));
+    dispatch(contactsActions.addContactsFromLS(contacts));
   };
 
   const handleAddContact = (name, number) => {
@@ -22,14 +22,14 @@ export default function useContacts() {
       }
     }
 
-    dispatch(itemsActions.addContact(newContact));
+    dispatch(contactsActions.addContact(newContact));
   };
 
   const handleDeleteContact = id => {
-    dispatch(itemsActions.deleteContact(id));
+    dispatch(contactsActions.deleteContact(id));
   };
 
-  const handleFilter = string => dispatch(filterActions.setFilter(string));
+  const handleFilter = string => dispatch(contactsActions.setFilter(string));
 
   return {
     contacts,

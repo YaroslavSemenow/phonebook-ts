@@ -1,3 +1,1 @@
-export { default } from './contactsReducer';
-export { filterActions } from './filterSlice';
-export { itemsActions } from './itemsSlice';
+export { contactsActions } from './contactsReducer';
