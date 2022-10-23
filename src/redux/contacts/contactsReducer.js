@@ -1,14 +1,3 @@
-// import { combineReducers } from '@reduxjs/toolkit';
-// import { filterReducer } from './filterSlice';
-// import { itemsReducer } from './itemsSlice';
-
-// const contactsReducer = combineReducers({
-//   items: itemsReducer,
-//   filter: filterReducer,
-// });
-
-// export default contactsReducer;
-
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -22,9 +11,6 @@ const contactsSlice = createSlice({
   reducers: {
     addContact(state, { payload }) {
       state.items = [...state.items, payload];
-    },
-    addContactsFromLS(state, { payload }) {
-      state.items = payload;
     },
     deleteContact(state, { payload }) {
       state.items = state.items.filter(contact => contact.id !== payload);

@@ -7,10 +7,6 @@ export default function useContacts() {
   const filter = useSelector(state => state.contacts.filter);
   const dispatch = useDispatch();
 
-  const handleAddContactsFromLS = contacts => {
-    dispatch(contactsActions.addContactsFromLS(contacts));
-  };
-
   const handleAddContact = (name, number) => {
     const id = shortid.generate();
     const newContact = { id, name, number };
@@ -34,7 +30,6 @@ export default function useContacts() {
   return {
     contacts,
     filter,
-    addContactsFromLS: handleAddContactsFromLS,
     addContact: handleAddContact,
     deleteContact: handleDeleteContact,
     setFilter: handleFilter,
