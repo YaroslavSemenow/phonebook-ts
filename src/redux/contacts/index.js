@@ -1,1 +1,1 @@
-export { contactsActions } from './contactsReducer';
+export { contactsActions } from './contactsSlice';
