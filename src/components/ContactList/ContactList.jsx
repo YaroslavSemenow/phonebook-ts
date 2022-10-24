@@ -23,6 +23,8 @@ export default function ContactList() {
 
   return (
     <>
+      {loading && <p>Loading...</p>}
+      {error && <h3>Oops, something went wrong. Please, reload the page.</h3>}
       {contacts.length !== 0 && (
         <ul className={style.list}>
           {visibleContacts.map(({ id, name, phone }) => (
@@ -30,8 +32,6 @@ export default function ContactList() {
           ))}
         </ul>
       )}
-      {loading && <p>Loading...</p>}
-      {error && <h3>Oops, something went wrong. Please, reload the page.</h3>}
     </>
   );
 }
