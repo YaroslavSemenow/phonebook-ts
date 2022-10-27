@@ -1,25 +1,22 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
 import useContacts from 'hooks/useContacts';
 import ContactItem from './ContactItem/ContactItem';
 import style from './ContactList.module.css';
 import { useGetAllContactsQuery } from 'redux/contacts/contacts';
 
 export default function ContactList() {
-  const [contacts, setContacts] = useState([]);
-  const { data, isError, isFetching, isSuccess } = useGetAllContactsQuery();
+  const { data, isError, isFetching } = useGetAllContactsQuery();
   const { filter } = useContacts();
 
-  useEffect(() => {
-    if (isSuccess) {
-      setContacts(data);
-    }
-  }, [data, isSuccess]);
+  const showContacts = data && data.length > 0;
 
   const getVisibleContacts = () => {
+    if (!showContacts) {
+      return;
+    }
+
     const normalizedFilter = filter.toLowerCase();
 
-    return contacts.filter(({ name }) =>
+    return data.filter(({ name }) =>
       name.toLowerCase().includes(normalizedFilter)
     );
   };
@@ -30,7 +27,7 @@ export default function ContactList() {
     <>
       {isFetching && <p>Loading...</p>}
       {isError && <h3>Oops, something went wrong. Please, reload the page.</h3>}
-      {contacts.length !== 0 && (
+      {showContacts && (
         <ul className={style.list}>
           {visibleContacts.map(({ id, name, phone }) => (
             <ContactItem key={id} id={id} name={name} phone={phone} />
