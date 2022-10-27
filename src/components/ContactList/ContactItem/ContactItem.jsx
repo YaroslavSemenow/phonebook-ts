@@ -8,6 +8,8 @@ export default function ContactItem({ contact }) {
   const { isLoading, isSuccess } = result;
   const { id, name, phone } = contact;
 
+  console.log(result);
+
   if (isSuccess) {
     toast.success(`${name} was successfully deleted`);
   }

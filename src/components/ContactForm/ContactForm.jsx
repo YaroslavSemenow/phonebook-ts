@@ -8,7 +8,7 @@ export default function ContactForm() {
   const [phone, setPhone] = useState('');
   const { setFilter } = useContacts();
 
-  const [updatePost, result] = useAddContactMutation();
+  const [updatePost] = useAddContactMutation();
 
   const handleInputChange = e => {
     const { name, value } = e.currentTarget;
