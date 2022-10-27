@@ -3,8 +3,7 @@ import style from './ContactItem.module.css';
 import { useDeleteContactMutation } from 'redux/contacts/contacts';
 
 export default function ContactItem({ contact }) {
-  const [deleteContact, { isLoading, isSuccess, isError }] =
-    useDeleteContactMutation();
+  const [deleteContact, { isLoading }] = useDeleteContactMutation();
   const { id, name, phone } = contact;
 
   return (

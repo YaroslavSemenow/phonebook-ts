@@ -6,9 +6,8 @@ import style from './ContactForm.module.css';
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const { setFilter } = useContacts();
-
   const [updatePost] = useAddContactMutation();
+  const { setFilter } = useContacts();
 
   const handleInputChange = e => {
     const { name, value } = e.currentTarget;
