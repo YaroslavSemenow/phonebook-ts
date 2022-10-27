@@ -4,10 +4,11 @@ import { toast } from 'react-toastify';
 import { useDeleteContactMutation } from 'redux/contacts/contacts';
 
 export default function ContactItem({ contact }) {
-  const [deleteContact, { isLoading, isError }] = useDeleteContactMutation();
+  const [deleteContact, result] = useDeleteContactMutation();
+  const { isLoading, isSuccess } = result;
   const { id, name, phone } = contact;
 
-  if (isLoading && !isError) {
+  if (isSuccess) {
     toast.success(`${name} was successfully deleted`);
   }
 
