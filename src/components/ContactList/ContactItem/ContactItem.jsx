@@ -2,21 +2,25 @@ import PropTypes from 'prop-types';
 import style from './ContactItem.module.css';
 import { toast } from 'react-toastify';
 import { useDeleteContactMutation } from 'redux/contacts/contacts';
+import { useEffect } from 'react';
 
 export default function ContactItem({ contact }) {
-  const [deleteContact, result] = useDeleteContactMutation();
-  const { isLoading, isSuccess } = result;
+  const [deleteContact, { isLoading, isSuccess, isError }] =
+    useDeleteContactMutation();
   const { id, name, phone } = contact;
 
-  console.log(result);
-
-  if (isSuccess) {
-    toast.success(`${name} was successfully deleted`);
-  }
-
-  const handleDeleteContact = () => {
-    deleteContact(id);
-  };
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(`"${name}" was successfully deleted`, {
+        autoClose: 3000,
+      });
+    }
+    if (isError) {
+      toast.error('Oops, something went wrong. Please, reload the page.', {
+        autoClose: 7000,
+      });
+    }
+  }, [isError, isSuccess, name]);
 
   return (
     <li className={style.item}>
@@ -25,7 +29,7 @@ export default function ContactItem({ contact }) {
         <button
           className={style.item_btn}
           disabled={isLoading}
-          onClick={handleDeleteContact}
+          onClick={() => deleteContact(id)}
         >
           Delete
         </button>
