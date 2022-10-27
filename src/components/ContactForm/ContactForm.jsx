@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import useContacts from 'hooks/useContacts';
+import { useAddContactMutation } from 'redux/contacts/contacts';
 import style from './ContactForm.module.css';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const { addContact, setFilter } = useContacts();
+  const { setFilter } = useContacts();
+
+  const [updatePost, result] = useAddContactMutation();
 
   const handleInputChange = e => {
     const { name, value } = e.currentTarget;
@@ -27,7 +30,7 @@ export default function ContactForm() {
   const handleSubmit = e => {
     e.preventDefault();
     setFilter('');
-    addContact(name, phone);
+    updatePost({ name, phone });
     resetForm();
   };
 

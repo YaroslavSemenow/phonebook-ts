@@ -4,10 +4,10 @@ import style from './ContactList.module.css';
 import { useGetAllContactsQuery } from 'redux/contacts/contacts';
 
 export default function ContactList() {
-  const { data, isError, isFetching } = useGetAllContactsQuery();
+  const { data: contacts, isError, isFetching } = useGetAllContactsQuery();
   const { filter } = useContacts();
 
-  const showContacts = data && data.length > 0;
+  const showContacts = contacts && contacts.length > 0;
 
   const getVisibleContacts = () => {
     if (!showContacts) {
@@ -16,7 +16,7 @@ export default function ContactList() {
 
     const normalizedFilter = filter.toLowerCase();
 
-    return data.filter(({ name }) =>
+    return contacts.filter(({ name }) =>
       name.toLowerCase().includes(normalizedFilter)
     );
   };
@@ -29,8 +29,8 @@ export default function ContactList() {
       {isError && <h3>Oops, something went wrong. Please, reload the page.</h3>}
       {showContacts && (
         <ul className={style.list}>
-          {visibleContacts.map(({ id, name, phone }) => (
-            <ContactItem key={id} id={id} name={name} phone={phone} />
+          {visibleContacts.map(contact => (
+            <ContactItem key={contact.id} contact={contact} />
           ))}
         </ul>
       )}

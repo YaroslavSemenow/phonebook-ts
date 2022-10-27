@@ -1,9 +1,19 @@
 import PropTypes from 'prop-types';
 import style from './ContactItem.module.css';
-import useContacts from 'hooks/useContacts';
+import { toast } from 'react-toastify';
+import { useDeleteContactMutation } from 'redux/contacts/contacts';
 
-export default function ContactItem({ id, name, phone }) {
-  const { deleteContact } = useContacts();
+export default function ContactItem({ contact }) {
+  const [deleteContact, { isLoading, isError }] = useDeleteContactMutation();
+  const { id, name, phone } = contact;
+
+  if (isLoading && !isError) {
+    toast.success(`${name} was successfully deleted`);
+  }
+
+  const handleDeleteContact = () => {
+    deleteContact(id);
+  };
 
   return (
     <li className={style.item}>
@@ -11,9 +21,8 @@ export default function ContactItem({ id, name, phone }) {
         <span className={style.item_name}>{name}</span> <span>{phone}</span>
         <button
           className={style.item_btn}
-          onClick={() => {
-            deleteContact(id);
-          }}
+          disabled={isLoading}
+          onClick={handleDeleteContact}
         >
           Delete
         </button>
@@ -23,7 +32,9 @@ export default function ContactItem({ id, name, phone }) {
 }
 
 ContactItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
+  contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+  }).isRequired,
 };
