@@ -1,10 +1,10 @@
 import useContacts from 'hooks/useContacts';
 import ContactItem from './ContactItem/ContactItem';
 import style from './ContactList.module.css';
-import { useGetAllContactsQuery } from 'redux/contacts/contacts';
+import { useGetAllContactsQuery } from 'services/contacts';
 
 export default function ContactList() {
-  const { data: contacts, isError, isFetching } = useGetAllContactsQuery();
+  const { data: contacts, isError, isLoading } = useGetAllContactsQuery();
   const { filter } = useContacts();
 
   const showContacts = contacts && contacts.length > 0;
@@ -25,7 +25,7 @@ export default function ContactList() {
 
   return (
     <>
-      {isFetching && <p>Loading...</p>}
+      {isLoading && <p>Loading...</p>}
       {isError && <h3>Oops, something went wrong. Please, reload the page.</h3>}
       {showContacts && (
         <ul className={style.list}>
@@ -33,6 +33,9 @@ export default function ContactList() {
             <ContactItem key={contact.id} contact={contact} />
           ))}
         </ul>
+      )}
+      {contacts && contacts.length === 0 && (
+        <h4>The contact book is currently empty</h4>
       )}
     </>
   );

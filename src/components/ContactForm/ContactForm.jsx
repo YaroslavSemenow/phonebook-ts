@@ -1,13 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import useContacts from 'hooks/useContacts';
-import { useAddContactMutation } from 'redux/contacts/contacts';
+import { useAddContactMutation } from 'services/contacts';
 import style from './ContactForm.module.css';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [updatePost] = useAddContactMutation();
-  const { setFilter } = useContacts();
+  const [updatePost, { isLoading, isSuccess, isError }] =
+    useAddContactMutation();
+  const { setFilter, setIsDisabledButton } = useContacts();
+
+  useEffect(() => {
+    setIsDisabledButton(isLoading);
+
+    if (isSuccess) {
+      toast.success(`Contact successfully added`);
+    }
+    if (isError) {
+      toast.error(
+        'Oops! Something went wrong. Please reload the page and try again'
+      );
+    }
+  }, [isError, isLoading, isSuccess, setIsDisabledButton]);
 
   const handleInputChange = e => {
     const { name, value } = e.currentTarget;
@@ -72,7 +87,9 @@ export default function ContactForm() {
             </label>
           </li>
           <li className={style.form__item}>
-            <button type="submit">Add contact</button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? 'Please wait...' : 'Add contact'}
+            </button>
           </li>
         </ul>
       </div>

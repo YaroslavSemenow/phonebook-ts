@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import style from './ContactItem.module.css';
-import { useDeleteContactMutation } from 'redux/contacts/contacts';
+import { useDeleteContactMutation } from 'services/contacts';
 
 export default function ContactItem({ contact }) {
-  const [deleteContact, { isLoading }] = useDeleteContactMutation();
+  const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
   const { id, name, phone } = contact;
 
   return (
@@ -12,7 +12,7 @@ export default function ContactItem({ contact }) {
         <span className={style.item_name}>{name}</span> <span>{phone}</span>
         <button
           className={style.item_btn}
-          disabled={isLoading}
+          disabled={isDeleting}
           onClick={() => deleteContact(id)}
         >
           Delete
