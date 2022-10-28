@@ -1,19 +1,27 @@
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import useContacts from 'hooks/useContacts';
-import ContactItem from './ContactItem/ContactItem';
-import style from './ContactList.module.css';
 import { useGetAllContactsQuery } from 'services/contacts';
+import ContactItem from './ContactItem/ContactItem';
+import Spinner from 'components/Spinner/Spinner';
+import style from './ContactList.module.css';
 
 export default function ContactList() {
-  const { data: contacts, isError, isLoading } = useGetAllContactsQuery();
+  const { data: contacts = [], isError, isLoading } = useGetAllContactsQuery();
   const { filter } = useContacts();
 
-  const showContacts = contacts && contacts.length > 0;
+  useEffect(() => {
+    if (isError) {
+      toast.error(
+        'Oops! Something went wrong. Please reload the page and try again',
+        {
+          duration: 10000,
+        }
+      );
+    }
+  }, [isError]);
 
   const getVisibleContacts = () => {
-    if (!showContacts) {
-      return;
-    }
-
     const normalizedFilter = filter.toLowerCase();
 
     return contacts.filter(({ name }) =>
@@ -22,11 +30,10 @@ export default function ContactList() {
   };
 
   const visibleContacts = getVisibleContacts();
+  const showContacts = contacts.length > 0;
 
   return (
     <>
-      {isLoading && <p>Loading...</p>}
-      {isError && <h3>Oops, something went wrong. Please, reload the page.</h3>}
       {showContacts && (
         <ul className={style.list}>
           {visibleContacts.map(contact => (
@@ -34,8 +41,9 @@ export default function ContactList() {
           ))}
         </ul>
       )}
-      {contacts && contacts.length === 0 && (
-        <h4>The contact book is currently empty</h4>
+      {isLoading && <Spinner />}
+      {!isLoading && !isError && contacts.length === 0 && (
+        <h4>The phone book is currently empty</h4>
       )}
     </>
   );
