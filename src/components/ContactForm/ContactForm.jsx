@@ -7,13 +7,9 @@ import style from './ContactForm.module.css';
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [updatePost, { isLoading, isSuccess, isError }] =
+  const [addContact, { isLoading, isSuccess, isError }] =
     useAddContactMutation();
-  const { isDisabledButton, setFilter, setIsDisabledButton } = useContacts();
-
-  useEffect(() => {
-    setIsDisabledButton(isLoading);
-  }, [isLoading, setIsDisabledButton]);
+  const { setFilter } = useContacts();
 
   useEffect(() => {
     if (isSuccess) {
@@ -46,7 +42,7 @@ export default function ContactForm() {
   const handleSubmit = e => {
     e.preventDefault();
     setFilter('');
-    updatePost({ name, phone });
+    addContact({ name, phone });
     resetForm();
   };
 
@@ -89,7 +85,7 @@ export default function ContactForm() {
             </label>
           </li>
           <li className={style.form__item}>
-            <button type="submit" disabled={isDisabledButton}>
+            <button type="submit" disabled={isLoading}>
               {isLoading ? 'Please wait...' : 'Add contact'}
             </button>
           </li>

@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   filter: '',
-  isDisabledButton: false,
 };
 
 const contactsSlice = createSlice({
@@ -11,9 +10,6 @@ const contactsSlice = createSlice({
   reducers: {
     setFilter(state, { payload }) {
       state.filter = payload;
-    },
-    setIsDisabledButton(state, { payload }) {
-      state.isLoading = payload;
     },
   },
 });

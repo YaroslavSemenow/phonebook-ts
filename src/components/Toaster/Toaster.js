@@ -3,13 +3,11 @@ import { Toaster } from 'react-hot-toast';
 export default function PopUpMessage() {
   return (
     <Toaster
+      position="bottom-right"
       toastOptions={{
-        success: {
-          position: 'bottom-right',
-          duration: 3000,
-        },
         error: {
           duration: 5000,
+          position: 'top-center',
         },
       }}
     />
