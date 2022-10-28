@@ -9,11 +9,13 @@ export default function ContactForm() {
   const [phone, setPhone] = useState('');
   const [updatePost, { isLoading, isSuccess, isError }] =
     useAddContactMutation();
-  const { setFilter, setIsDisabledButton } = useContacts();
+  const { isDisabledButton, setFilter, setIsDisabledButton } = useContacts();
 
   useEffect(() => {
     setIsDisabledButton(isLoading);
+  }, [isLoading, setIsDisabledButton]);
 
+  useEffect(() => {
     if (isSuccess) {
       toast.success(`Contact successfully added`);
     }
@@ -22,7 +24,7 @@ export default function ContactForm() {
         'Oops! Something went wrong. Please reload the page and try again'
       );
     }
-  }, [isError, isLoading, isSuccess, setIsDisabledButton]);
+  }, [isError, isSuccess]);
 
   const handleInputChange = e => {
     const { name, value } = e.currentTarget;
@@ -87,7 +89,7 @@ export default function ContactForm() {
             </label>
           </li>
           <li className={style.form__item}>
-            <button type="submit" disabled={isLoading}>
+            <button type="submit" disabled={isDisabledButton}>
               {isLoading ? 'Please wait...' : 'Add contact'}
             </button>
           </li>

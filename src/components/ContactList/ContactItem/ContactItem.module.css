@@ -13,4 +13,5 @@
 
 .item_btn {
   margin-left: 40px;
+  min-width: 80px;
 }

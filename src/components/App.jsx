@@ -1,7 +1,7 @@
 import Container from './Container';
 import ContactForm from './ContactForm';
 import Filter from './Filter';
-import ContactList from './ContactList';
+import ContactList from './ContactList/ContactList';
 import PopUpMessage from './Toaster/Toaster';
 
 export default function App() {
