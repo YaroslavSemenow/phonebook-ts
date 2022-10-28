@@ -1,26 +1,36 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import useContacts from 'hooks/useContacts';
-import { useAddContactMutation } from 'services/contacts';
+import {
+  useAddContactMutation,
+  useGetAllContactsQuery,
+} from 'services/contacts';
 import style from './ContactForm.module.css';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [toastId, setToastId] = useState(null);
   const [addContact, { isLoading, isSuccess, isError }] =
     useAddContactMutation();
-  const { setFilter } = useContacts();
+  const { data: contacts } = useGetAllContactsQuery();
+
+  useEffect(() => {
+    if (isLoading) {
+      setToastId(toast.loading('Adding...'));
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(`Contact successfully added`);
+      toast.success(`Contact successfully added`, { id: toastId });
     }
     if (isError) {
       toast.error(
-        'Oops! Something went wrong. Please reload the page and try again'
+        'Oops! Something went wrong. Please reload the page and try again',
+        { id: toastId }
       );
     }
-  }, [isError, isSuccess]);
+  }, [isError, isSuccess, toastId]);
 
   const handleInputChange = e => {
     const { name, value } = e.currentTarget;
@@ -41,9 +51,18 @@ export default function ContactForm() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    setFilter('');
-    addContact({ name, phone });
     resetForm();
+    const newContact = { name, phone };
+
+    for (const { name } of contacts) {
+      if (name.toLowerCase() === newContact.name.toLowerCase()) {
+        toast.error(`"${newContact.name}" is already in contact`, {
+          duration: 3000,
+        });
+        return;
+      }
+    }
+    addContact(newContact);
   };
 
   const resetForm = () => {

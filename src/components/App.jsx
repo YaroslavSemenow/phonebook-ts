@@ -1,8 +1,8 @@
 import Container from './Container';
+import { Toaster } from 'react-hot-toast';
 import ContactForm from './ContactForm';
 import Filter from './Filter';
 import ContactList from './ContactList/ContactList';
-import PopUpMessage from './Toaster/Toaster';
 
 export default function App() {
   return (
@@ -12,7 +12,13 @@ export default function App() {
       <h2>Contacts</h2>
       <Filter />
       <ContactList />
-      <PopUpMessage />
+      <Toaster
+        toastOptions={{
+          error: {
+            duration: 7000,
+          },
+        }}
+      />
     </Container>
   );
 }
