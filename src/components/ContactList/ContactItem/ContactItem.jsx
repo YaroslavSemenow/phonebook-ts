@@ -1,26 +1,32 @@
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import style from './ContactItem.module.css';
 import { useDeleteContactMutation } from 'services/contacts';
 import toast from 'react-hot-toast';
-import { useEffect } from 'react';
 
 export default function ContactItem({ contact }) {
   const [deleteContact, { isLoading: isDeleting, isSuccess, isError }] =
     useDeleteContactMutation();
+  const [toastId, setToastId] = useState(null);
   const { id, name, phone } = contact;
 
   useEffect(() => {
+    if (isDeleting) {
+      setToastId(toast.loading('Deleting...'));
+    }
+  }, [isDeleting]);
+
+  useEffect(() => {
     if (isSuccess) {
-      toast.success(`${contact.name} has been deleted`);
+      toast.success(`${contact.name} has been deleted`, { id: toastId });
     }
     if (isError) {
       toast.error(
-        'Oops! Something went wrong. Please reload the page and try again'
+        'Oops! Something went wrong. Please reload the page and try again',
+        { id: toastId }
       );
     }
-  }, [contact.name, isError, isSuccess]);
-
-  console.log('isSuccess :', isSuccess, 'isError :', isError);
+  }, [contact.name, isError, isSuccess, toastId]);
 
   return (
     <li className={style.item}>
@@ -31,7 +37,7 @@ export default function ContactItem({ contact }) {
           disabled={isDeleting}
           onClick={() => deleteContact(id)}
         >
-          Detete
+          {isDeleting ? 'Deleting...' : 'Delete'}
         </button>
       </div>
     </li>
