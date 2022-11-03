@@ -4,7 +4,9 @@ import { useDeleteContactMutation } from 'services/contacts';
 import toast from 'react-hot-toast';
 
 export default function ContactItem({ contact }) {
-  const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
+  const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation({
+    fixedCacheKey: 'delete-contacts-item',
+  });
   const { id, name, phone } = contact;
 
   const handleDeleteContact = () => {
@@ -24,7 +26,7 @@ export default function ContactItem({ contact }) {
           disabled={isDeleting}
           onClick={handleDeleteContact}
         >
-          {isDeleting ? 'Deleting...' : 'Delete'}
+          Delete
         </button>
       </div>
     </li>
