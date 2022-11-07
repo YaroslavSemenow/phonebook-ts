@@ -21,7 +21,7 @@ export default function ContactList() {
     }
   }, [isError]);
 
-  const getFilteredContacts = useMemo(() => {
+  const filteredContacts = useMemo(() => {
     const normalizedFilter = filter.toLowerCase();
 
     return contacts.filter(({ name }) =>
@@ -29,7 +29,6 @@ export default function ContactList() {
     );
   }, [contacts, filter]);
 
-  const filteredContacts = getFilteredContacts();
   const showContacts = contacts.length > 0;
 
   return (
