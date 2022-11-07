@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import toast from 'react-hot-toast';
 import useContacts from 'hooks/useContacts';
 import { useGetAllContactsQuery } from 'services/contacts';
@@ -21,22 +21,22 @@ export default function ContactList() {
     }
   }, [isError]);
 
-  const getVisibleContacts = () => {
+  const getFilteredContacts = useMemo(() => {
     const normalizedFilter = filter.toLowerCase();
 
     return contacts.filter(({ name }) =>
       name.toLowerCase().includes(normalizedFilter)
     );
-  };
+  }, [contacts, filter]);
 
-  const visibleContacts = getVisibleContacts();
+  const filteredContacts = getFilteredContacts();
   const showContacts = contacts.length > 0;
 
   return (
     <>
       {showContacts && (
         <ul className={style.list}>
-          {visibleContacts.map(contact => (
+          {filteredContacts.map(contact => (
             <ContactItem key={contact.id} contact={contact} />
           ))}
         </ul>
