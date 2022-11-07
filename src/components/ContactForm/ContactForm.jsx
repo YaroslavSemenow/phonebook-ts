@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import {
   useAddContactMutation,
@@ -9,28 +9,8 @@ import style from './ContactForm.module.css';
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [toastId, setToastId] = useState(null);
-  const [addContact, { isLoading, isSuccess, isError }] =
-    useAddContactMutation();
+  const [addContact, { isLoading }] = useAddContactMutation();
   const { data: contacts } = useGetAllContactsQuery();
-
-  useEffect(() => {
-    if (isLoading) {
-      setToastId(toast.loading('Adding...'));
-    }
-  }, [isLoading]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success(`Contact successfully added`, { id: toastId });
-    }
-    if (isError) {
-      toast.error(
-        'Oops! Something went wrong. Please reload the page and try again',
-        { id: toastId }
-      );
-    }
-  }, [isError, isSuccess, toastId]);
 
   const handleInputChange = e => {
     const { name, value } = e.currentTarget;
@@ -62,7 +42,12 @@ export default function ContactForm() {
         return;
       }
     }
-    addContact(newContact);
+
+    toast.promise(addContact(newContact).unwrap(), {
+      loading: 'Adding...',
+      success: `Contact successfully added`,
+      error: 'Oops! Something went wrong. Please reload the page and try again',
+    });
   };
 
   const resetForm = () => {
@@ -105,7 +90,7 @@ export default function ContactForm() {
           </li>
           <li className={style.form__item}>
             <button type="submit" disabled={isLoading}>
-              {isLoading ? 'Please wait...' : 'Add contact'}
+              Add contact
             </button>
           </li>
         </ul>
