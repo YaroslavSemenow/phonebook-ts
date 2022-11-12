@@ -40,7 +40,7 @@ export default function ContactList() {
           ))}
         </ul>
       )}
-      {isLoading && <Spinner />}
+      {isLoading && <Spinner size={80} />}
       {!isLoading && !isError && contacts.length === 0 && (
         <h4>The phone book is currently empty</h4>
       )}

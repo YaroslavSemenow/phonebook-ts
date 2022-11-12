@@ -1,5 +1,10 @@
-import FadeLoader from 'react-spinners/FadeLoader';
+import ClipLoader from 'react-spinners/ClipLoader';
+import styles from './Spinner.module.css';
 
-export default function Spinner() {
-  return <FadeLoader speedMultiplier={2} margin={30} color={'#36d7b7'} />;
+export default function Spinner({ size }) {
+  return (
+    <div className={styles.spinner}>
+      <ClipLoader size={size} color={'rgba(0, 0, 0, 0.6)'} />
+    </div>
+  );
 }

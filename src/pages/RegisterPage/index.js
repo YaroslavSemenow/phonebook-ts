@@ -1,1 +1,1 @@
-export { default } from './RefisterPage.jsx';
+export { default } from './RegisterPage.jsx';

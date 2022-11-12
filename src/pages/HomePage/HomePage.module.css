@@ -1,0 +1,25 @@
+.text_wrap {
+  margin-top: 30px;
+
+  text-align: center;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.links_wrap {
+  margin-top: 10px;
+}
+
+.link {
+  display: inline-block;
+
+  font-weight: 500;
+  color: rgb(41, 120, 209);
+
+  transition: transform 200ms linear;
+}
+
+.link:hover,
+.link:focus {
+  transform: scale(1.03);
+}

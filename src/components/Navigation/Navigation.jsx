@@ -3,16 +3,16 @@ import styles from './Navigation.module.css';
 
 export default function Navigation() {
   return (
-    <div>
-      {/* <NavLink to="/contacts" className={styles.link}>
-        Contacts
-      </NavLink> */}
-      <NavLink to="/register" className={styles.link}>
-        Register
-      </NavLink>
-      <NavLink to="/login" className={styles.link}>
-        Login
-      </NavLink>
+    <div className={styles.nav}>
+      <NavLink to="/">HOME PAGE</NavLink>
+      <div>
+        <NavLink to="/register" className={styles.auth_link}>
+          Register
+        </NavLink>
+        <NavLink to="/login" className={styles.auth_link}>
+          Login
+        </NavLink>
+      </div>
     </div>
   );
 }
