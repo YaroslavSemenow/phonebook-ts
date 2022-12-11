@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import {
   useAddContactMutation,
   useGetAllContactsQuery,
-} from 'services/contacts';
+} from 'services/contacts-api';
 import style from './ContactForm.module.css';
 
 export default function ContactForm() {

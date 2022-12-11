@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const baseUrl = 'https://6355ae6a483f5d2df3b88926.mockapi.io';
+const baseUrl = 'https://connections-api.herokuapp.com/';
 
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',

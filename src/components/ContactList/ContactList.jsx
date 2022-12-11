@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import toast from 'react-hot-toast';
 import useContacts from 'hooks/useContacts';
-import { useGetAllContactsQuery } from 'services/contacts';
+import { useGetAllContactsQuery } from 'services/contacts-api';
 import ContactItem from './ContactItem/ContactItem';
 import Spinner from 'components/Spinner/Spinner';
 import style from './ContactList.module.css';

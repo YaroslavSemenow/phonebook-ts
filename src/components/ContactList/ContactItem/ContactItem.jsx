@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import style from './ContactItem.module.css';
-import { useDeleteContactMutation } from 'services/contacts';
+import { useDeleteContactMutation } from 'services/contacts-api';
 import toast from 'react-hot-toast';
 
 export default function ContactItem({ contact }) {

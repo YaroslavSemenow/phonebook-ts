@@ -1,0 +1,7 @@
+.user__wrap {
+  display: flex;
+}
+
+.user__name {
+  margin-right: 10px;
+}
