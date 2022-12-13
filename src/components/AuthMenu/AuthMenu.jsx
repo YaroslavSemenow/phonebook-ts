@@ -8,7 +8,7 @@ export default function AuthMenu() {
         Register
       </NavLink>
       <NavLink to="/login" className={styles.auth_link}>
-        Login
+        Log in
       </NavLink>
     </div>
   );

@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import {
-  useAddContactMutation,
-  useGetAllContactsQuery,
-} from 'redux/contacts/contactsApi';
+import { useAddContactMutation, useGetAllContactsQuery } from 'redux/contacts';
 import style from './ContactForm.module.css';
 
 export default function ContactForm() {

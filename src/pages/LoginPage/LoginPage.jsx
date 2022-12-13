@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { authOperations } from 'redux/auth';
 import styles from './LoginPage.module.css';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -23,7 +26,7 @@ export default function LoginPage() {
 
   const handleSubmit = e => {
     e.preventDefault();
-
+    dispatch(authOperations.logIn({ email, password }));
     setEmail('');
     setPassword('');
   };
@@ -53,7 +56,7 @@ export default function LoginPage() {
           />
         </label>
         <button className={styles.btn} type="submit">
-          Login
+          Log in
         </button>
       </form>
     </>

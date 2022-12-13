@@ -7,7 +7,7 @@ export default function HomePage() {
       <div>Welcome to the personal phone book!</div>{' '}
       <div className={styles.links_wrap}>
         <Link to="/login" className={styles.link}>
-          Sign in
+          Log in
         </Link>{' '}
         or{' '}
         <Link to="/register" className={styles.link}>
