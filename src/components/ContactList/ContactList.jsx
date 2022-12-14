@@ -13,10 +13,7 @@ export default function ContactList() {
   useEffect(() => {
     if (isError) {
       toast.error(
-        'Oops! Something went wrong. Please reload the page and try again',
-        {
-          duration: 10000,
-        }
+        'Oops! Something went wrong. Please reload the page and try again'
       );
     }
   }, [isError]);

@@ -6,7 +6,6 @@ import ContactList from 'components/ContactList';
 export default function ContactsPage() {
   return (
     <div>
-      <h2>Phonebook</h2>
       <ContactForm />
       <h2>Contacts</h2>
       <Filter />
@@ -14,7 +13,7 @@ export default function ContactsPage() {
       <Toaster
         toastOptions={{
           error: {
-            duration: 7000,
+            duration: 3000,
           },
         }}
       />

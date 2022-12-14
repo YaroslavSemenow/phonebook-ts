@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { authSelectors } from 'redux/auth';
 import Container from 'components/Container';
@@ -12,13 +12,18 @@ export default function AppBar() {
   return (
     <header className={styles.header}>
       <Container>
-        <div className={styles.nav}>
-          <div>
-            <NavLink to="/">HOME PAGE</NavLink>
-            <NavLink to="/contacts">CONTACTS</NavLink>
+        {!isLoggedIn && (
+          <div className={styles.nav}>
+            <Link to="/">PHONEBOOK</Link>
+            <AuthMenu />
           </div>
-          {isLoggedIn ? <UserMenu /> : <AuthMenu />}
-        </div>
+        )}
+        {isLoggedIn && (
+          <div className={styles.nav}>
+            <Link to="/contacts">PHONEBOOK</Link>
+            <UserMenu />
+          </div>
+        )}
       </Container>
     </header>
   );
