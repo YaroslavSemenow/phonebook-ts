@@ -5,7 +5,7 @@ import style from './ContactForm.module.css';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
   const [addContact, { isLoading }] = useAddContactMutation();
   const { data: contacts } = useGetAllContactsQuery();
 
@@ -17,8 +17,8 @@ export default function ContactForm() {
         setName(value);
         break;
 
-      case 'phone':
-        setPhone(value);
+      case 'number':
+        setNumber(value);
         break;
 
       default:
@@ -29,7 +29,7 @@ export default function ContactForm() {
   const handleSubmit = e => {
     e.preventDefault();
     resetForm();
-    const newContact = { name, phone };
+    const newContact = { name, number };
 
     for (const { name } of contacts) {
       if (name.toLowerCase() === newContact.name.toLowerCase()) {
@@ -49,7 +49,7 @@ export default function ContactForm() {
 
   const resetForm = () => {
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   return (
@@ -76,11 +76,11 @@ export default function ContactForm() {
               <span>Phone</span>
               <input
                 type="tel"
-                name="phone"
+                name="number"
                 pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                 title="Phone phone must be digits and can contain spaces, dashes, parentheses and can start with +"
                 onChange={handleInputChange}
-                value={phone}
+                value={number}
                 required
               />
             </label>

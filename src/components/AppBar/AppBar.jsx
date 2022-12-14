@@ -13,7 +13,10 @@ export default function AppBar() {
     <header className={styles.header}>
       <Container>
         <div className={styles.nav}>
-          <NavLink to="/">HOME PAGE</NavLink>
+          <div>
+            <NavLink to="/">HOME PAGE</NavLink>
+            <NavLink to="/contacts">CONTACTS</NavLink>
+          </div>
           {isLoggedIn ? <UserMenu /> : <AuthMenu />}
         </div>
       </Container>
