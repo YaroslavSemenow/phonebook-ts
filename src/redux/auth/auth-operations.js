@@ -18,8 +18,8 @@ const register = createAsyncThunk('auth/register', async credentials => {
     token.set(data.token);
     return data;
   } catch (error) {
-    console.log(error.message);
-    return error.message;
+    console.log(error);
+    return error;
   }
 });
 
@@ -29,8 +29,8 @@ const logIn = createAsyncThunk('auth/login', async credentials => {
     token.set(data.token);
     return data;
   } catch (error) {
-    console.log(error.message);
-    return error.message;
+    console.log(error);
+    return error;
   }
 });
 
@@ -39,15 +39,37 @@ const logOut = createAsyncThunk('auth/logout', async () => {
     await axios.post('/users/logout');
     token.unset();
   } catch (error) {
-    console.log(error.message);
-    return error.message;
+    console.log(error);
+    return error;
   }
 });
+
+const refreshCurrentUser = createAsyncThunk(
+  'auth/refresh',
+  async (_, { getState, rejectWithValue }) => {
+    const state = getState();
+    const persistedToken = state.auth.token;
+
+    if (persistedToken === null) {
+      return rejectWithValue();
+    }
+
+    token.set(persistedToken);
+    try {
+      const { data } = await axios.get('/users/current');
+      return data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+);
 
 const authOperations = {
   register,
   logIn,
   logOut,
+  refreshCurrentUser,
 };
 
 export default authOperations;
