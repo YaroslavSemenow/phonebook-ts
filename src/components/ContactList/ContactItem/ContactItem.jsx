@@ -7,7 +7,7 @@ export default function ContactItem({ contact }) {
   const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation({
     fixedCacheKey: 'delete-contacts-item',
   });
-  const { id, name, phone } = contact;
+  const { id, name, number } = contact;
 
   const handleDeleteContact = () => {
     toast.promise(deleteContact(id).unwrap(), {
@@ -20,7 +20,7 @@ export default function ContactItem({ contact }) {
   return (
     <li className={style.item}>
       <div className={style.item_inner}>
-        <span className={style.item_name}>{name}</span> <span>{phone}</span>
+        <span className={style.item_name}>{name}</span> <span>{number}</span>
         <button
           className={style.item_btn}
           disabled={isDeleting}
