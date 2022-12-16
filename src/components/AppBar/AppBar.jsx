@@ -12,18 +12,17 @@ export default function AppBar() {
   return (
     <header className={styles.header}>
       <Container>
-        {!isLoggedIn && (
-          <div className={styles.nav}>
-            <Link to="/">PHONEBOOK</Link>
-            <AuthMenu />
+        <div className={styles.header__inner}>
+          <div>
+            <Link className={styles.nav__link} to="/">
+              HOME PAGE
+            </Link>
+            <Link className={styles.nav__link} to="/contacts">
+              PHONEBOOK
+            </Link>
           </div>
-        )}
-        {isLoggedIn && (
-          <div className={styles.nav}>
-            <Link to="/contacts">PHONEBOOK</Link>
-            <UserMenu />
-          </div>
-        )}
+          {isLoggedIn ? <UserMenu /> : <AuthMenu />}
+        </div>
       </Container>
     </header>
   );

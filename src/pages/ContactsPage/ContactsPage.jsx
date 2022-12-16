@@ -1,7 +1,8 @@
 import { Toaster } from 'react-hot-toast';
 import ContactForm from 'components/ContactForm';
 import Filter from 'components/Filter';
-import ContactList from 'components/ContactList';
+import ContactList from '../../components/ContactList/ContactList';
+// import ContactList from 'components/ContactList';
 
 export default function ContactsPage() {
   return (

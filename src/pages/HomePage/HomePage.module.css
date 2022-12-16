@@ -15,11 +15,4 @@
 
   font-weight: 500;
   color: rgb(41, 120, 209);
-
-  transition: transform 200ms linear;
-}
-
-.link:hover,
-.link:focus {
-  transform: scale(1.03);
 }

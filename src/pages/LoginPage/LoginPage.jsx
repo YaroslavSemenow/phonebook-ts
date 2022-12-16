@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { authOperations } from 'redux/auth';
 import styles from './LoginPage.module.css';
 
@@ -58,6 +59,9 @@ export default function LoginPage() {
         <button className={styles.btn} type="submit">
           Log in
         </button>
+        <p className={styles.text}>
+          or <Link to="../register">create account</Link>.
+        </p>
       </form>
     </>
   );

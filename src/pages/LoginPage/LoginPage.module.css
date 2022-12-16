@@ -33,3 +33,9 @@
   margin-top: 5px;
   padding: 2px 7px 4px 7px;
 }
+
+.text {
+  margin-top: 10px;
+
+  text-align: center;
+}

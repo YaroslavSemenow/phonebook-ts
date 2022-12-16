@@ -1,7 +1,7 @@
 import { lazy, useEffect, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { authOperations, authSelectors } from 'redux/auth';
+import { useDispatch } from 'react-redux';
+import { authOperations } from 'redux/auth';
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 import HomePage from 'pages/HomePage';
@@ -15,7 +15,6 @@ const RegisterPage = lazy(() => import('pages/RegisterPage'));
 const ContactsPage = lazy(() => import('pages/ContactsPage'));
 
 export default function App() {
-  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,19 +27,12 @@ export default function App() {
       <Suspense fallback={<Spinner size={100} />}>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route
-              index
-              element={
-                <PublicRoute isLoggedIn={isLoggedIn}>
-                  <HomePage />
-                </PublicRoute>
-              }
-            />
+            <Route index element={<HomePage />} />
 
             <Route
               path="login"
               element={
-                <PublicRoute isLoggedIn={isLoggedIn}>
+                <PublicRoute>
                   <LoginPage />
                 </PublicRoute>
               }
@@ -49,7 +41,7 @@ export default function App() {
             <Route
               path="register"
               element={
-                <PublicRoute isLoggedIn={isLoggedIn}>
+                <PublicRoute>
                   <RegisterPage />
                 </PublicRoute>
               }
@@ -58,7 +50,7 @@ export default function App() {
             <Route
               path="contacts"
               element={
-                <PrivateRoute isLoggedIn={isLoggedIn}>
+                <PrivateRoute>
                   <ContactsPage />
                 </PrivateRoute>
               }
