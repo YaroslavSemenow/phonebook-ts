@@ -1,5 +1,5 @@
-import { Route } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-export default function PrivateRoute({ children, ...routeProps }) {
-  return <Route {...routeProps}>{children}</Route>;
+export default function PrivateRoute({ children, isLoggedIn }) {
+  return <>{isLoggedIn ? children : <Navigate to="/" />}</>;
 }
