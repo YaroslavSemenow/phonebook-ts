@@ -1,7 +1,7 @@
 import { lazy, useEffect, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { authOperations } from 'redux/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { authOperations, authSelectors } from 'redux/auth';
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 import HomePage from 'pages/HomePage';
@@ -16,6 +16,9 @@ const ContactsPage = lazy(() => import('pages/ContactsPage'));
 
 export default function App() {
   const dispatch = useDispatch();
+  const isFetchingCurrentUser = useSelector(
+    authSelectors.getIsFetchingCurrentUser
+  );
 
   useEffect(() => {
     dispatch(authOperations.refreshCurrentUser());
@@ -24,42 +27,54 @@ export default function App() {
   return (
     <>
       <AppBar />
-      <Suspense fallback={<Spinner size={100} />}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
 
-            <Route
-              path="login"
-              element={
-                <PublicRoute>
-                  <LoginPage />
-                </PublicRoute>
-              }
-            />
+      {isFetchingCurrentUser ? (
+        <Spinner size={100} />
+      ) : (
+        <Suspense fallback={<Spinner size={100} />}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route
+                index
+                element={
+                  <PublicRoute>
+                    <HomePage />
+                  </PublicRoute>
+                }
+              />
 
-            <Route
-              path="register"
-              element={
-                <PublicRoute>
-                  <RegisterPage />
-                </PublicRoute>
-              }
-            />
+              <Route
+                path="login"
+                element={
+                  <PublicRoute restricted>
+                    <LoginPage />
+                  </PublicRoute>
+                }
+              />
 
-            <Route
-              path="contacts"
-              element={
-                <PrivateRoute>
-                  <ContactsPage />
-                </PrivateRoute>
-              }
-            />
+              <Route
+                path="register"
+                element={
+                  <PublicRoute restricted>
+                    <RegisterPage />
+                  </PublicRoute>
+                }
+              />
 
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Routes>
-      </Suspense>
+              <Route
+                path="contacts"
+                element={
+                  <PrivateRoute>
+                    <ContactsPage />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      )}
     </>
   );
 }

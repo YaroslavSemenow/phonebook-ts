@@ -9,7 +9,7 @@ export default function UserMenu() {
   return (
     <div className={styles.user__wrap}>
       <p className={styles.user__name}>
-        <b>Wellcome, {userName}!</b>
+        <b>Welcome, {userName}!</b>
       </p>
       <button type="button" onClick={() => dispatch(authOperations.logOut())}>
         Log out
