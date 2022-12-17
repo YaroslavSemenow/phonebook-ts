@@ -27,7 +27,6 @@ export default function App() {
   return (
     <>
       <AppBar />
-
       {isFetchingCurrentUser ? (
         <Spinner size={100} />
       ) : (
