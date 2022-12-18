@@ -2,9 +2,17 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { authOperations } from 'redux/auth';
-import styles from './LoginPage.module.css';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 
-export default function LoginPage() {
+export default function SingUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
@@ -33,36 +41,69 @@ export default function LoginPage() {
   };
 
   return (
-    <>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <h1 className={styles.title}>Log in</h1>
-        <label className={styles.label}>
-          Email
-          <input
-            className={styles.input}
-            type="email"
-            name="email"
-            onChange={handleChange}
-            value={email}
-          />
-        </label>
-        <label className={styles.label}>
-          Password
-          <input
-            className={styles.input}
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={password}
-          />
-        </label>
-        <button className={styles.btn} type="submit">
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
           Log in
-        </button>
-        <p className={styles.text}>
-          or <Link to="../register">create account</Link>.
-        </p>
-      </form>
-    </>
+        </Typography>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                onChange={handleChange}
+                required
+                fullWidth
+                autoFocus
+                type="email"
+                label="Email"
+                name="email"
+                value={email}
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                onChange={handleChange}
+                required
+                fullWidth
+                name="password"
+                value={password}
+                label="Password"
+                type="password"
+                autoComplete="new-password"
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Log in
+          </Button>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link to="../register">
+                <Typography variant="body2">
+                  New to Phonebook? Create an account
+                </Typography>
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
   );
 }
