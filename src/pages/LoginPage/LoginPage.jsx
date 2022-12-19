@@ -95,8 +95,8 @@ export default function SingUp() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link to="../register">
-                <Typography variant="body2">
+              <Link to="../register" style={{ color: 'rgb(22, 102, 183)' }}>
+                <Typography variant="body2" component="span">
                   New to Phonebook? Create an account
                 </Typography>
               </Link>

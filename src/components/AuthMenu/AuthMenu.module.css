@@ -1,3 +1,7 @@
+.auth_link {
+  color: inherit;
+}
+
 .auth_link:not(:last-child) {
   margin-right: 12px;
 }

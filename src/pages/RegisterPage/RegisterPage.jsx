@@ -112,8 +112,8 @@ export default function RegisterPage() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link to="../login">
-                <Typography variant="body2">
+              <Link to="../login" style={{ color: 'rgb(22, 102, 183)' }}>
+                <Typography variant="body2" component="span">
                   Already have an account? Log in
                 </Typography>
               </Link>

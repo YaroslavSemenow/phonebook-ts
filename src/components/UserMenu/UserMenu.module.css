@@ -1,7 +1,11 @@
-.user__wrap {
+.userMenu {
   display: flex;
 }
 
-.user__name {
+.user {
   margin-right: 10px;
+}
+
+.user__text {
+  color: #000000;
 }
