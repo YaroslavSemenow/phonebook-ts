@@ -61,6 +61,7 @@ export default function ContactForm() {
             label="Name"
             size="small"
             variant="standard"
+            helperText="*required"
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -85,7 +86,12 @@ export default function ContactForm() {
           />
         </li>
         <li className={styles.form__item}>
-          <Button variant="contained" type="submit" disabled={isLoading}>
+          <Button
+            variant="contained"
+            sx={{ marginTop: '8px' }}
+            type="submit"
+            disabled={isLoading}
+          >
             Add contact
           </Button>
         </li>

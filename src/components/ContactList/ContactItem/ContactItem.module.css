@@ -1,17 +1,22 @@
-.item:not(:last-child) {
-  margin-bottom: 8px;
+.item {
+  padding-left: 8px;
 }
 
-.item_inner {
+.item__inner {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.item_name {
+.item:nth-child(2n) {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.item__name {
   flex-grow: 1;
 }
 
-.item_btn {
-  margin-left: 40px;
-  min-width: 80px;
+.item__name,
+.item__number {
+  margin-right: 15px;
 }

@@ -1,19 +1,19 @@
+import { TextField } from '@mui/material';
 import useContacts from 'hooks/useContacts';
-import { DebounceInput } from 'react-debounce-input';
 
 export default function Filter() {
   const { filter, setFilter } = useContacts();
 
   return (
-    <>
-      <p>Find contacts by name</p>
-      <DebounceInput
-        type="text"
-        name="filter"
-        value={filter}
-        onChange={e => setFilter(e.target.value)}
-        debounceTimeout={400}
-      />
-    </>
+    <TextField
+      type="text"
+      name="filter"
+      variant="filled"
+      size="small"
+      sx={{ marginBottom: '25px' }}
+      label="Find contacts by name"
+      value={filter}
+      onChange={e => setFilter(e.target.value)}
+    ></TextField>
   );
 }
