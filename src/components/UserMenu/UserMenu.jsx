@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { authOperations, authSelectors } from 'redux/auth';
 import styles from './UserMenu.module.css';
@@ -18,9 +18,14 @@ export default function UserMenu() {
           <span className={styles.user__text}>Welcome,</span> {userName}
         </Typography>
       </p>
-      <button type="button" onClick={() => dispatch(authOperations.logOut())}>
+      <Button
+        type="button"
+        variant="outlined"
+        size="small"
+        onClick={() => dispatch(authOperations.logOut())}
+      >
         Log out
-      </button>
+      </Button>
     </div>
   );
 }

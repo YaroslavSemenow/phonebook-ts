@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { TextField, Button } from '@mui/material';
 import { useAddContactMutation, useGetAllContactsQuery } from 'redux/contacts';
-import style from './ContactForm.module.css';
+import styles from './ContactForm.module.css';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
@@ -53,45 +54,42 @@ export default function ContactForm() {
   };
 
   return (
-    <form className={style.form} onSubmit={handleSubmit}>
-      <div className={style.form__inner}>
-        <ul className={style.form__list}>
-          <li className={style.form__item}>
-            <label className={style.form__label}>
-              <span>Name</span>
-              <input
-                type="text"
-                name="name"
-                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                onChange={handleInputChange}
-                value={name}
-                required
-              />
-            </label>
-          </li>
-          <li className={style.form__item}>
-            {' '}
-            <label className={style.form__label}>
-              <span>Phone</span>
-              <input
-                type="tel"
-                name="number"
-                pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                title="Phone phone must be digits and can contain spaces, dashes, parentheses and can start with +"
-                onChange={handleInputChange}
-                value={number}
-                required
-              />
-            </label>
-          </li>
-          <li className={style.form__item}>
-            <button type="submit" disabled={isLoading}>
-              Add contact
-            </button>
-          </li>
-        </ul>
-      </div>
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <ul className={styles.form__list}>
+        <li className={styles.form__item}>
+          <TextField
+            label="Name"
+            size="small"
+            variant="standard"
+            type="text"
+            name="name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            onChange={handleInputChange}
+            value={name}
+            required
+          />
+        </li>
+        <li className={styles.form__item}>
+          <TextField
+            label="Number"
+            size="small"
+            variant="standard"
+            type="tel"
+            name="number"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone phone must be digits and can contain spaces, dashes, parentheses and can start with +"
+            onChange={handleInputChange}
+            value={number}
+            required
+          />
+        </li>
+        <li className={styles.form__item}>
+          <Button variant="contained" type="submit" disabled={isLoading}>
+            Add contact
+          </Button>
+        </li>
+      </ul>
     </form>
   );
 }
