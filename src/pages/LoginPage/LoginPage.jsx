@@ -36,9 +36,9 @@ export default function LoginPage() {
     }
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    dispatch(authOperations.logIn({ email, password }));
+    await dispatch(authOperations.logIn({ email, password })).unwrap();
     setEmail('');
     setPassword('');
   };

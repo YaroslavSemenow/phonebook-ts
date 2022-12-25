@@ -78,9 +78,8 @@ export default function App() {
       )}
       <Toaster
         toastOptions={{
-          error: {
-            duration: 3000,
-          },
+          duration: 4000,
+          position: 'bottom-right',
         }}
       />
     </>

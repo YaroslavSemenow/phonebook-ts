@@ -22,6 +22,9 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
       state.isLoading = false;
     },
+    [authOperations.register.rejected](state) {
+      state.isLoading = false;
+    },
     [authOperations.logIn.pending](state) {
       state.isLoading = true;
     },
@@ -32,7 +35,6 @@ const authSlice = createSlice({
       state.isLoading = false;
     },
     [authOperations.logIn.rejected](state) {
-      console.log('виконався екшн');
       state.isLoading = false;
     },
     [authOperations.logOut.pending](state) {

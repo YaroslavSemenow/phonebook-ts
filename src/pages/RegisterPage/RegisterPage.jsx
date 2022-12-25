@@ -13,6 +13,7 @@ import {
   Typography,
   Box,
 } from '@mui/material';
+import { toast } from 'react-hot-toast';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -40,9 +41,16 @@ export default function RegisterPage() {
     }
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    dispatch(authOperations.register({ name, email, password }));
+
+    if (password.length < 7) {
+      toast.error('Password is shorter than the minimum allowed length (7).');
+      return;
+    }
+
+    await dispatch(authOperations.register({ name, email, password })).unwrap();
+
     setName('');
     setEmail('');
     setPassword('');

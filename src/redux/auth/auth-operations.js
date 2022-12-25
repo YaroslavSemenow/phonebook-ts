@@ -13,15 +13,28 @@ const token = {
   },
 };
 
-const register = createAsyncThunk('auth/register', async credentials => {
-  try {
-    const response = await axios.post('/users/signup', credentials);
-    token.set(response.data.token);
-    return response.data;
-  } catch (error) {
-    console.log(error);
+const register = createAsyncThunk(
+  'auth/register',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/users/signup', credentials);
+      token.set(data.token);
+      return data;
+    } catch (error) {
+      console.log(error);
+
+      if (error.response.status === 400) {
+        toast.error('A user with this name or email already exists.');
+      } else {
+        toast.error(
+          'Oops! Something went wrong. Please reload the page and try again.'
+        );
+      }
+
+      return rejectWithValue();
+    }
   }
-});
+);
 
 const logIn = createAsyncThunk(
   'auth/login',
@@ -31,13 +44,15 @@ const logIn = createAsyncThunk(
       token.set(data.token);
       return data;
     } catch (error) {
-      console.log(error.response.status);
-      toast.error(
-        'The email address and password combination you entered cannot be recognized or does not exist. Please try again.'
-      );
+      console.log(error);
+
       if (error.response.status === 400) {
         toast.error(
           'The email address and password combination you entered cannot be recognized or does not exist. Please try again.'
+        );
+      } else {
+        toast.error(
+          'Oops! Something went wrong. Please reload the page and try again'
         );
       }
 
