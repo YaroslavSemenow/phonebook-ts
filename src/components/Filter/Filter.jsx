@@ -11,7 +11,7 @@ export default function Filter() {
       variant="filled"
       size="small"
       sx={{ marginBottom: '25px' }}
-      label="Find contacts by name"
+      label="Find contact by name"
       value={filter}
       onChange={e => setFilter(e.target.value)}
     ></TextField>

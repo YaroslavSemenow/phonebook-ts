@@ -1,12 +1,14 @@
 import { lazy, useEffect, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Toaster } from 'react-hot-toast';
 import { authOperations, authSelectors } from 'redux/auth';
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 import HomePage from 'pages/HomePage';
 import NotFoundPage from 'pages/NotFoundPage';
-import Layout from './Layout';
+// import LayoutMain from './LayoutMain';
+import LayoutMain from './LayoutMain/LayoutMain';
 import AppBar from './AppBar';
 import Spinner from './Spinner';
 
@@ -32,7 +34,7 @@ export default function App() {
       ) : (
         <Suspense fallback={<Spinner size={100} />}>
           <Routes>
-            <Route path="/" element={<Layout />}>
+            <Route path="/" element={<LayoutMain />}>
               <Route
                 index
                 element={
@@ -74,6 +76,13 @@ export default function App() {
           </Routes>
         </Suspense>
       )}
+      <Toaster
+        toastOptions={{
+          error: {
+            duration: 3000,
+          },
+        }}
+      />
     </>
   );
 }

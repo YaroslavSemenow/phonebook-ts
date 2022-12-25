@@ -1,20 +1,23 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { authOperations } from 'redux/auth';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import { authOperations, authSelectors } from 'redux/auth';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import LoadingButton from '@mui/lab/LoadingButton';
+import {
+  Avatar,
+  CssBaseline,
+  TextField,
+  Grid,
+  Container,
+  Typography,
+  Box,
+} from '@mui/material';
 
-export default function SingUp() {
+export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const isLoading = useSelector(authSelectors.getIsLoading);
   const dispatch = useDispatch();
 
   const handleChange = e => {
@@ -57,42 +60,42 @@ export default function SingUp() {
         <Typography component="h1" variant="h5">
           Log in
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                onChange={handleChange}
-                required
                 fullWidth
+                onChange={handleChange}
                 autoFocus
                 type="email"
                 label="Email"
                 name="email"
                 value={email}
-                autoComplete="email"
+                required
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 onChange={handleChange}
-                required
                 fullWidth
                 name="password"
                 value={password}
                 label="Password"
                 type="password"
-                autoComplete="new-password"
+                required
               />
             </Grid>
           </Grid>
-          <Button
+          <LoadingButton
             type="submit"
             fullWidth
+            loading={isLoading}
+            loadingIndicator="Please wait..."
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
             Log in
-          </Button>
+          </LoadingButton>
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link to="../register" style={{ color: 'rgb(22, 102, 183)' }}>

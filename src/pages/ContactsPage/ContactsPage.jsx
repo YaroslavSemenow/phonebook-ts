@@ -1,4 +1,3 @@
-import { Toaster } from 'react-hot-toast';
 import ContactForm from 'components/ContactForm';
 import Filter from 'components/Filter';
 import ContactList from '../../components/ContactList/ContactList';
@@ -11,13 +10,6 @@ export default function ContactsPage() {
       <ContactForm />
       <Filter />
       <ContactList />
-      <Toaster
-        toastOptions={{
-          error: {
-            duration: 3000,
-          },
-        }}
-      />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import styles from './UserMenu.module.css';
 
 export default function UserMenu() {
   const userName = useSelector(authSelectors.getUserName);
+  const isLoading = useSelector(authSelectors.getIsLoading);
   const dispatch = useDispatch();
 
   return (
@@ -22,6 +23,7 @@ export default function UserMenu() {
         type="button"
         variant="outlined"
         size="small"
+        disabled={isLoading}
         onClick={() => dispatch(authOperations.logOut())}
       >
         Log out

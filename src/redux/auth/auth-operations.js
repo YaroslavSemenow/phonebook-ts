@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -14,25 +15,36 @@ const token = {
 
 const register = createAsyncThunk('auth/register', async credentials => {
   try {
-    const { data } = await axios.post('/users/signup', credentials);
-    token.set(data.token);
-    return data;
+    const response = await axios.post('/users/signup', credentials);
+    token.set(response.data.token);
+    return response.data;
   } catch (error) {
     console.log(error);
-    return error;
   }
 });
 
-const logIn = createAsyncThunk('auth/login', async credentials => {
-  try {
-    const { data } = await axios.post('/users/login', credentials);
-    token.set(data.token);
-    return data;
-  } catch (error) {
-    console.log(error);
-    return error;
+const logIn = createAsyncThunk(
+  'auth/login',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/users/login', credentials);
+      token.set(data.token);
+      return data;
+    } catch (error) {
+      console.log(error.response.status);
+      toast.error(
+        'The email address and password combination you entered cannot be recognized or does not exist. Please try again.'
+      );
+      if (error.response.status === 400) {
+        toast.error(
+          'The email address and password combination you entered cannot be recognized or does not exist. Please try again.'
+        );
+      }
+
+      return rejectWithValue();
+    }
   }
-});
+);
 
 const logOut = createAsyncThunk('auth/logout', async () => {
   try {
