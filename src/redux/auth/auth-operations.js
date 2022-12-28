@@ -61,15 +61,21 @@ const logIn = createAsyncThunk(
   }
 );
 
-const logOut = createAsyncThunk('auth/logout', async () => {
-  try {
-    await axios.post('/users/logout');
-    token.unset();
-  } catch (error) {
-    console.log(error);
-    return error;
+const logOut = createAsyncThunk(
+  'auth/logout',
+  async (_, { rejectWithValue }) => {
+    try {
+      await axios.post('/users/logout');
+      token.unset();
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        'Oops! Something went wrong. Please reload the page and try again.'
+      );
+      return rejectWithValue();
+    }
   }
-});
+);
 
 const refreshCurrentUser = createAsyncThunk(
   'auth/refresh',
@@ -87,7 +93,7 @@ const refreshCurrentUser = createAsyncThunk(
       return data;
     } catch (error) {
       console.log(error);
-      return error;
+      return rejectWithValue();
     }
   }
 );
